@@ -1,5 +1,4 @@
 class EventsIO:
-
     def generate_tuples_from_file(self, training_file_path):
         """
         Generates tuples from file formated like:
@@ -16,10 +15,9 @@ class EventsIO:
                 continue
             dataInReview = review.split("\t")
             for i in range(len(dataInReview)):
-            # remove any extraneous whitespace
                 dataInReview[i] = dataInReview[i].strip()
-                t = tuple(dataInReview)
-                listOfExamples.append(t)
+            t = tuple(dataInReview)
+            listOfExamples.append(t)
         f.close()
         return listOfExamples
 
@@ -59,9 +57,8 @@ class Metrics:
         for i in range(len(predicted_labels)):
             if predicted_labels[i] == '1':
                 total_positive_preds += 1
-
-            if gold_labels[i] == '1':
-                correct_positive_preds += 1
+                if gold_labels[i] == '1':
+                    correct_positive_preds += 1
         
         return correct_positive_preds/total_positive_preds
 
@@ -80,9 +77,8 @@ class Metrics:
         for i in range(len(predicted_labels)):
             if gold_labels[i] == '1':
                 actual_positive_preds += 1
-
-            if predicted_labels[i] == '1':
-                positive_preds += 1
+                if predicted_labels[i] == '1':
+                    positive_preds += 1
         
         return positive_preds/actual_positive_preds
 

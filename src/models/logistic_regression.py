@@ -1,7 +1,7 @@
 import numpy as np
 from collections import Counter
 from nltk.tokenize import word_tokenize
-from utils import EventsIO as io
+from ..utils import EventsIO
 
 class TextClassify:
   """
@@ -75,6 +75,7 @@ class TextClassify:
     '''
     Constructs all the necessary attributes for the TextClassify object.
     '''    
+    self.io = EventsIO()
     self.reviews = []
     self.labels = []
     self.word_freq = {}
@@ -86,10 +87,11 @@ class TextClassify:
     self.lr = 0.0001
     self.positive_label = '1'
     self.negative_label = '0'
-    self.pos_words = io.load_lexicon('positive-words.txt')
-    self.neg_words = io.load_lexicon('negative-words.txt')    
+    self.pos_words = self.io.load_lexicon('src/training_files/positive-words.txt')
+    self.neg_words = self.io.load_lexicon('src/training_files/negative-words.txt')    
     self.pronouns = ['I', 'me', 'my', 'mine', 'myself', 'we', 'us', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 'yourself', 'yourselves']
     self.stopwords = ['doesn', "hasn't", 'only', 'his', 'am', 'which', 'theirs', 'them', "she's", 'at', 'up', 'own', 'just', 'you', 'what', 'wouldn', 'once', 'any', 's', 'below', 'yourself', 'or', 'is', 'further', 'here', 'those', 'an', 'of', 'all', 'nor', 'won', "should've", "isn't", 'ain', 'are', 'yours', "that'll", 'both', 'and', 'needn', 'some', "mightn't", "wouldn't", 'when', 'than', 'couldn', "didn't", 'the', 'their', 'under', 'very', 'hasn', 'haven', 'aren', "it's", 'over', 'were', "don't", "shouldn't", 'does', 'it', 'into', 'd', 'ourselves', 'more', "haven't", 'too', "doesn't", 'who', 'did', 'itself', 'off', 'as', 'with', 'had', 'in', 'most', 't', 'do', 'now', 'until', 're', "you'll", 'has', 'during', 'on', 'where', 'y', 'didn', 'few', "you're", 'ours', "mustn't", "wasn't", 'o', 'while', 'whom', 'to', 'between', 'ma', 'himself', 'then', 'no', 'myself', "shan't", 'mightn', 'being', 'having', 'wasn', 'again', 'but', 'against', 'each', 'these', 'before', 'her', 'such', "couldn't", "hadn't", 'we', 'out', 'hers', 'don', 'there', 'm', 'mustn', 'my', 'through', "won't", 'i', 'can', 'other', 'this', "you've", 'for', 'our', 'your', 'doing', 'how', 'was', "aren't", 'shouldn', 'from', 'that', 'been', 'about', 'hadn', 'shan', 'if', 'a', 'after', 'he', 'themselves', 'have', 'should', 'not', 'weren', 'because', 'll', 'by', 'will', 'so', 'same', 'isn', 'down', 've', 'they', "weren't", 'be', 'its', 'why', "you'd", 'above', 'yourselves', 'herself', "needn't", 'me', 'him', 'she']
+    
     
     
   def sigmoid(self, value):
