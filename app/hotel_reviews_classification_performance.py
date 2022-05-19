@@ -4,7 +4,7 @@ Email: nahata.h@northeastern.edu
 """
 
 """
-Citations:
+CITATION:
 Bing Liu's sentiment lexicon of positive and negative words
 NLTK word tokenizer
 NLTK stopwords list
@@ -21,15 +21,14 @@ class SentimentClassification:
   def __init__(self) -> None:
     self.io = EventsIO()
     self.metrics = Metrics()
+    self.training_path = "src/training_files/train_file.txt"
+    self.testing_path = "src/training_files/dev_file.txt"
     
   def run(self):
-    training = sys.argv[1]
-    testing = sys.argv[2]
-
     # train samples
-    samples = self.io.generate_tuples_from_file(training_file_path = training)
+    samples = self.io.generate_tuples_from_file(training_file_path = self.training_path)
     # test samples
-    test_samples = self.io.generate_tuples_from_file(training_file_path = testing)
+    test_samples = self.io.generate_tuples_from_file(training_file_path = self.testing_path)
 
     # Naive Bayes Classifier - Baseline
     classifier = naive_bayes.TextClassify()
@@ -70,9 +69,5 @@ class SentimentClassification:
 
   
 if __name__ == "__main__":
-
-  if len(sys.argv) != 3:
-    print("Usage:", "python textclassify_model.py src/training_files/train_file.txt src/training_files/dev_file.txt")
-    sys.exit(1)
 
   SentimentClassification().run()
